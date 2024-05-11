@@ -4,6 +4,8 @@ import "./globals.css";
 import SessionProvider from "@/components/SessionProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import NavMenu from "@/components/NavMenu";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,14 +25,18 @@ export default function RootLayout({
 			suppressHydrationWarning
 		>
 			<SessionProvider>
-				<body className={inter.className}>
+				<body className={`${inter.className} overflow-hidden`}>
 					<ThemeProvider
 						attribute="class"
 						defaultTheme="system"
 						enableSystem
 						disableTransitionOnChange
 					>
-						<main>{children}</main>
+						<ScrollArea className="h-[calc(100dvh-80px)]">
+							<main>{children}</main>
+						</ScrollArea>
+
+						<NavMenu />
 					</ThemeProvider>
 				</body>
 				<Toaster />
