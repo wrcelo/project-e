@@ -13,39 +13,45 @@ const NavMenu = () => {
 	return (
 		<>
 			<div className="h-20 w-full border-t bg-background">
-				<div className="grid grid-cols-5 gap-4 items-center h-full px-8">
-					<Link
-						href={"/dashboard"}
-						className={`h-12 w-12 flex items-center justify-center rounded-full ${
-							pathname == "/dashboard" ? "!text-primary bg-primary/5 border-primary/35 border" : "bg-transparent"
-						}`}
-					>
-						<Home className="" />
-					</Link>
-					<Link
-						href={"/cadastros"}
-						className={`h-12 w-12 flex items-center justify-center rounded-full ${
-							pathname == "/cadastros" ? "!text-primary bg-primary/5 border-primary/35 border" : "bg-transparent"
-						}`}
-					>
-						<CopyCheck className="" />
-					</Link>
-					<Link
-						href={"/arquivos"}
-						className={`h-12 w-12 flex items-center justify-center rounded-full ${
-							pathname == "/arquivos" ? "!text-primary bg-primary/5 border-primary/35 border" : "bg-transparent"
-						}`}
-					>
-						<File className="" />
-					</Link>
-					<Link
-						href={"/relatorios"}
-						className={`h-12 w-12 flex items-center justify-center rounded-full ${
-							pathname == "/relatorios" ? "!text-primary bg-primary/5 border-primary/35 border" : "bg-transparent"
-						}`}
-					>
-						<LineChart className="" />
-					</Link>
+				<div className="flex items-center h-full px-8 justify-between">
+					<div className="flex gap-2 items-center h-full justify-between">
+						<Link
+							href={"/dashboard"}
+							className={`h-12 w-12 flex items-center justify-center rounded-full ${
+								pathname == "/dashboard" ? "!text-primary bg-primary/5 border-primary/35 border" : "bg-transparent"
+							}`}
+						>
+							<Home className="" />
+						</Link>
+						<Link
+							href={"/cadastros"}
+							className={`h-12 w-12 flex items-center justify-center rounded-full ${
+								pathname == "/cadastros" ? "!text-primary bg-primary/5 border-primary/35 border" : "bg-transparent"
+							}`}
+						>
+							<CopyCheck className="" />
+						</Link>
+						<Link
+							href={"/arquivos"}
+							className={`h-12 w-12 flex items-center justify-center rounded-full ${
+								pathname == "/arquivos" ? "!text-primary bg-primary/5 border-primary/35 border" : "bg-transparent"
+							}`}
+						>
+							<File className="" />
+						</Link>
+						<Link
+							href={"/relatorios"}
+							className={`h-12 w-12 flex items-center justify-center rounded-full ${
+								pathname == "/relatorios" ? "!text-primary bg-primary/5 border-primary/35 border" : "bg-transparent"
+							}`}
+						>
+							<LineChart className="" />
+						</Link>
+					</div>
+					<Separator
+						orientation="vertical"
+						className="h-10 w-[1px]"
+					/>
 
 					<Drawer>
 						<DrawerTrigger asChild>
