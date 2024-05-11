@@ -32,11 +32,13 @@ export default function RootLayout({
 						enableSystem
 						disableTransitionOnChange
 					>
-						<ScrollArea className="h-[calc(100dvh-80px)]">
-							<main>{children}</main>
-						</ScrollArea>
+						<div className="md:flex md:flex-row-reverse ">
+							<ScrollArea className="h-[calc(100dvh-80px)] md:w-full">
+								<main>{children}</main>
+							</ScrollArea>
 
-						<NavMenu />
+							<NavMenu />
+						</div>
 					</ThemeProvider>
 				</body>
 				<Toaster />
