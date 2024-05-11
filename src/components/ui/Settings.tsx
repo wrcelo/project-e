@@ -25,7 +25,7 @@ const Settings = () => {
 		setIsDarkMode(isChecked);
 	};
 	return (
-		<div className="px-6 min-h-[80vh] py-4">
+		<div className="px-6 min-h-[80dvh] py-4">
 			<div className="mb-6">
 				<h2 className="text-xl mb-1 font-semibold">Configurações</h2>
 				<p className="text-muted-foreground text-xs">Altere as configurações do seu sistema.</p>
