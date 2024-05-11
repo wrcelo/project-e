@@ -36,7 +36,6 @@ export default function RootLayout({
 							<ScrollArea className="h-[calc(100dvh-80px)] md:h-dvh md:w-full">
 								<main>{children}</main>
 							</ScrollArea>
-
 							<NavMenu />
 						</div>
 					</ThemeProvider>

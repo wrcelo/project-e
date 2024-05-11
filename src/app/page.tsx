@@ -6,9 +6,5 @@ export interface Credentials {
 }
 
 export default function Home() {
-	return (
-		<div>
-			<FormLogin />
-		</div>
-	);
+	return <FormLogin />;
 }

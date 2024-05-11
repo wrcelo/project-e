@@ -33,14 +33,14 @@ const FormLogin = () => {
 		let username = values.username;
 		let password = values.password;
 		if ((!username && !password) || !username || !password) {
-			toast.error("Digite o usuário e/ou a senha", { position: "top-left" });
+			toast.error("Digite o usuário e/ou a senha", { position: "top-right" });
 			return;
 		}
 
 		if (username == "admin") {
 			router.push("/dashboard");
 		} else {
-			toast.error("Erro na autenticação", { position: "top-left" });
+			toast.error("Erro na autenticação", { position: "top-right" });
 		}
 	}
 
