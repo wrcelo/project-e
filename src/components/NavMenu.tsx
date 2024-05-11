@@ -13,8 +13,8 @@ const NavMenu = () => {
 	return (
 		<>
 			<div className="h-20 w-full border-t bg-background">
-				<div className="flex items-center h-full px-8 justify-between">
-					<div className="flex gap-2 items-center h-full justify-between">
+				<div className="flex items-center h-full px-8 justify-between gap-2">
+					<div className="grid grid-cols-4 gap-2 items-center h-full">
 						<Link
 							href={"/dashboard"}
 							className={`h-12 w-12 flex items-center justify-center rounded-full ${
@@ -50,7 +50,7 @@ const NavMenu = () => {
 					</div>
 					<Separator
 						orientation="vertical"
-						className="h-10 w-[1px]"
+						className="h-10 w-[1px] sm:hidden"
 					/>
 
 					<Drawer>
