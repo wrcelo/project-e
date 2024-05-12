@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { Separator } from "./ui/separator";
 import LinkNavMenu from "./LinkNavMenu";
 import Notifications from "./Notifications";
+import SearchInput from "./SearchInput";
 
 const NavMenu = () => {
 	const pathname = usePathname();
@@ -18,7 +19,9 @@ const NavMenu = () => {
 			{pathname != "/" && (
 				<div className="h-20 w-full border-t bg-secondary/10 md:w-96 md:h-dvh md:py-6 md:border-r shadow">
 					<div className="flex items-center h-full px-6 md:px-4 justify-between  gap-2 md:flex-col md:items-start">
-						<div className="grid grid-cols-4 gap-2 items-center md:items-start h-full md:flex-col md:flex md:w-full md:border-b">
+						<div className="grid grid-cols-4 gap-2 items-center md:items-start h-full md:flex-col md:flex md:w-full ">
+							<SearchInput />
+
 							<LinkNavMenu
 								path={"dashboard"}
 								displayName={"Dashboard"}

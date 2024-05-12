@@ -3,7 +3,7 @@ import React from "react";
 
 const NotificationsItem = ({ title, description }: { title: string; description: string }) => {
 	return (
-		<div className="p-4 py-3 border shadow-sm rounded-md flex gap-2 items-center hover:bg-muted-foreground/5 cursor-pointer relative">
+		<div className="p-4 py-3 border shadow-sm rounded-md flex gap-3 items-center hover:bg-muted-foreground/5 cursor-pointer relative">
 			<div className="p-2 rounded-full bg-primary text-background">
 				<TriangleAlert className="w-4 h-4" />
 			</div>
