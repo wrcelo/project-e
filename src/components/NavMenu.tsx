@@ -21,7 +21,7 @@ const NavMenu = () => {
 					<div className="flex items-center h-full px-6 md:px-4 justify-between  gap-2 md:flex-col md:items-start">
 						<div className="grid grid-cols-4 gap-2 items-center md:items-start h-full md:flex-col md:flex md:w-full ">
 							<SearchInput />
-
+							<Separator className="my-4" />
 							<LinkNavMenu
 								path={"dashboard"}
 								displayName={"Dashboard"}

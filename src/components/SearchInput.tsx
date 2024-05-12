@@ -5,7 +5,7 @@ import { SearchIcon } from "lucide-react";
 
 const SearchInput = () => {
 	return (
-		<div className="flex w-full">
+		<div className=" w-full hidden md:flex">
 			<Input
 				placeholder="Buscar"
 				className="rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0 border border-r-0"
