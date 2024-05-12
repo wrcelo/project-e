@@ -1,7 +1,8 @@
 import React from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Bell } from "lucide-react";
+import { Bell, CircleX, TriangleAlert } from "lucide-react";
 import { PopoverArrow } from "@radix-ui/react-popover";
+import NotificationsItem from "./NotificationsItem";
 
 const Notifications = () => {
 	return (
@@ -12,10 +13,20 @@ const Notifications = () => {
 					<Bell className="relative" />
 				</div>
 			</PopoverTrigger>
-			<PopoverContent className="mr-8 mt-2 min-h-[200px]">
-				<div className="p-4 border shadow-sm rounded-md">
-					<h3 className="text-sm text-foreground font-semibold">Nova notificação</h3>
-					<p className="text-xs text-muted-foreground ">Uma nova atividade foi identificada</p>
+			<PopoverContent className="mr-8 mt-2 w-[325px]">
+				<div className="flex justify-between items-center mb-4">
+					<h3 className="text-md font-semibold">Notificações</h3>
+					<span className="text-xs underline underline-offset-2 cursor-pointer">Ver todas</span>
+				</div>
+				<div className="flex flex-col gap-4">
+					<NotificationsItem
+						title={"Nova Atividade"}
+						description={"Uma atividade foi identificada"}
+					/>
+					<NotificationsItem
+						title={"Nova Atividade"}
+						description={"Uma atividade foi identificada"}
+					/>
 				</div>
 			</PopoverContent>
 		</Popover>

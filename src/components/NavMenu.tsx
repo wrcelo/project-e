@@ -49,7 +49,7 @@ const NavMenu = () => {
 						<Drawer>
 							<DrawerTrigger asChild>
 								<div
-									className={`transition-all duration-150 ease-in-out h-12 w-12 md:w-full md:gap-3 flex items-center justify-center md:justify-start md:px-4 rounded-full md:rounded-lg md:h-11 bg-transparent md:hover:bg-foreground/5 md:text-muted-foreground md:hover:text-foreground"
+									className={` cursor-pointer transition-all duration-150 ease-in-out h-12 w-12 md:w-full md:gap-3 flex items-center justify-center md:justify-start md:px-4 rounded-full md:rounded-lg md:h-11 bg-transparent md:hover:bg-foreground/5 md:text-muted-foreground md:hover:text-foreground"
 									}`}
 								>
 									<Menu className="w-5 h-5" />
