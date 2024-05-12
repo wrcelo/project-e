@@ -8,9 +8,9 @@ const Notifications = () => {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<div className="relative">
-					<span className="absolute top-0  right-0 w-2 h-2 rounded-full bg-primary"></span>
-					<Bell className="relative" />
+				<div className="relative cursor-pointer ">
+					<span className="absolute top-0 right-0 w-2 h-2 rounded-full bg-primary z-10"></span>
+					<Bell className="relative text-muted-foreground hover:text-foreground transition-all duration-200" />
 				</div>
 			</PopoverTrigger>
 			<PopoverContent className="mr-8 mt-2 w-[325px]">
@@ -18,7 +18,7 @@ const Notifications = () => {
 					<h3 className="text-md font-semibold">Notificações</h3>
 					<span className="text-xs underline underline-offset-2 cursor-pointer">Ver todas</span>
 				</div>
-				<div className="flex flex-col gap-4">
+				<div className="flex flex-col gap-3">
 					<NotificationsItem
 						title={"Nova Atividade"}
 						description={"Uma atividade foi identificada"}

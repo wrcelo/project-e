@@ -37,8 +37,11 @@ const FormLogin = () => {
 			return;
 		}
 
-		if (username == "admin") {
-			router.push("/dashboard");
+		if (username == "admin" && password == "admin") {
+			toast.success("Logado com sucesso!", { description: "Você está sendo redirecionado, aguarde.", position: "top-right" });
+			setTimeout(() => {
+				router.push("/dashboard");
+			}, 2000);
 		} else {
 			toast.error("Erro na autenticação", { position: "top-right" });
 		}
