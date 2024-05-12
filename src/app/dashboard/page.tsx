@@ -10,12 +10,11 @@ const Dashboard = () => {
 	return (
 		<div className="p-8">
 			<PageHeader title={"Dashboard"} />
-			<div className="grid grid-cols-2  gap-4 md:grid-cols-4">
-				<Skeleton className="col-span-2 h-[250px]"></Skeleton>
-				<Skeleton className="col-span-2 row-span-2"></Skeleton>
-				<Skeleton className="col-span-1 h-20"></Skeleton>
-				<Skeleton className="col-span-1 h-20 "></Skeleton>
-				<Skeleton className="col-span-4 h-80"></Skeleton>
+			<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+				<Skeleton className="col-span-2 md:col-span-3 md:row-span-2 h-[250px]"></Skeleton>
+				<Skeleton className="col-span-1 md:row-span-2 "></Skeleton>
+				<Skeleton className="col-span-1 h-20 md:col-span-2"></Skeleton>
+				<Skeleton className="col-span-2 md:col-span-2 md:row-span-2 h-20"></Skeleton>{" "}
 			</div>
 		</div>
 	);
