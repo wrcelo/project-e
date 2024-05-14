@@ -1,8 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Switch } from "./switch";
-import { Label } from "./label";
+import { Switch } from "./ui/switch";
+import { Label } from "./ui/label";
 import { useTheme } from "next-themes";
+import { Separator } from "./ui/separator";
 
 const Settings = () => {
 	const { setTheme, theme } = useTheme();
@@ -25,17 +26,14 @@ const Settings = () => {
 		setIsDarkMode(isChecked);
 	};
 	return (
-		<div className="px-6 min-h-[80dvh] py-4">
-			<div className="mb-6">
-				<h2 className="text-xl mb-1 font-semibold">Configurações</h2>
-				<p className="text-muted-foreground text-xs">Altere as configurações do seu sistema.</p>
-			</div>
-			<div className="flex items-center gap-2">
+		<div className="">
+			<div className="flex items-center gap-2 justify-between h-10">
+				<Label htmlFor="isDarkMode">Modo Escuro</Label>
 				<Switch
+					id="isDarkMode"
 					checked={isDarkMode}
 					onCheckedChange={handleDarkMode}
 				/>
-				<Label>Modo Escuro</Label>
 			</div>
 		</div>
 	);

@@ -9,14 +9,12 @@ const LinkNavMenu = ({ path, displayName, icon }: { path: string; displayName: s
 	return (
 		<Link
 			href={`/${path}`}
-			className={`transition-all duration-150 ease-in-out h-12 w-12 md:w-full md:gap-2 flex items-center justify-center md:justify-start md:px-4 rounded-full md:rounded-md md:h-10 ${
-				pathname == `/${path}`
-					? "text-primary bg-primary/5 border-primary/30 border md:border-none  md:text-foreground md:bg-muted-foreground/5"
-					: "md:text-muted-foreground md:hover:text-foreground"
+			className={`transition-all duration-150 ease-in-out h-10 w-10 flex items-center justify-center  rounded-full ${
+				pathname == `/${path}` ? "text-primary bg-primary/5 border-primary/30" : "text-muted-foreground "
 			}`}
 		>
 			{icon}
-			<span className="hidden md:block text-sm mt-[1px] md:text-sm">{displayName}</span>
+			<span className="hidden text-sm mt-[1px]">{displayName}</span>
 		</Link>
 	);
 };
