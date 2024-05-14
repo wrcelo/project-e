@@ -7,9 +7,9 @@ import SearchInput from "./SearchInput";
 
 const PageHeader = ({ title }: { title: string }) => {
 	return (
-		<div className="flex justify-between items-center w-full mb-6">
+		<div className="flex justify-between items-center w-full mb-6 sticky top-0 left-0 p-6 bg-background border-b md:pt-0 md:px-0">
 			<div className="flex gap-4 items-center">
-				<h3 className="font-semibold text-lg">{title}</h3>
+				<h3 className="font-semibold text-md">{title}</h3>
 			</div>
 			<div>
 				<Notifications />

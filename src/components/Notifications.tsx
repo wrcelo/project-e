@@ -13,7 +13,8 @@ const Notifications = () => {
 					<Bell className="relative text-muted-foreground hover:text-foreground transition-all duration-200" />
 				</div>
 			</PopoverTrigger>
-			<PopoverContent className="mr-8 mt-2 w-[325px]">
+
+			<PopoverContent className="w-screen sm:w-[325px] sm:mr-8 mt-2">
 				<div className="flex justify-between items-center mb-4">
 					<h3 className="text-md font-semibold">Notificações</h3>
 					<span className="text-xs underline underline-offset-2 cursor-pointer">Ver todas</span>

@@ -5,7 +5,7 @@ import React from "react";
 const NotFound = () => {
 	return (
 		<>
-			<div className="h-dvh w-dvh flex items-center justify-center px-12 bg-gradient-to-t from-background via-background to-primary/10">
+			<div className="h-dvh w-dvh flex items-center justify-center px-12 ">
 				<div className="flex gap-4 ">
 					<CircleX className="text-primary" />
 					<div className="mt-[-2px]">

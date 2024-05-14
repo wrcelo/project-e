@@ -5,10 +5,8 @@ import { Home, LayoutList, ArchiveIcon, LineChartIcon, Wallet } from "lucide-rea
 const MenuDesktop = ({ onSelect }: { onSelect?: any }) => {
 	return (
 		<div
-			className="flex flex-col gap-1"
-			onClick={() => {
-				onSelect();
-			}}
+			className="flex flex-col gap-1 md:px-4"
+			onClick={onSelect}
 		>
 			<LinkNavMenuDesktop
 				path={"dashboard"}

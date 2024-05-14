@@ -8,7 +8,7 @@ import React from "react";
 
 const Dashboard = () => {
 	return (
-		<div className="p-5 md:p-8">
+		<div className=" md:p-8">
 			<PageHeader title={"Dashboard"} />
 			<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
 				<Skeleton className="col-span-2 md:col-span-3 md:row-span-2 h-[250px]"></Skeleton>
