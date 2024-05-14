@@ -11,7 +11,8 @@ import LinkNavMenu from "./LinkNavMenu";
 import Notifications from "./Notifications";
 import SearchInput from "./SearchInput";
 import MenuMobile from "./MenuMobile";
-import MenuDesktop from "./MenuDesktop";
+import MenuVertical from "./MenuVertical";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 const NavMenu = () => {
 	const pathname = usePathname();
@@ -21,7 +22,7 @@ const NavMenu = () => {
 			{pathname != "/" && (
 				<div className="h-20 w-full border-t bg-secondary/10 md:w-96 md:h-dvh md:py-6 md:border-r shadow">
 					<MenuMobile />
-					<MenuDesktop />
+					<MenuVertical />
 
 					<Separator
 						orientation="vertical"

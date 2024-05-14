@@ -1,13 +1,13 @@
 import NavMenu from "@/components/NavMenu";
 import PageHeader from "@/components/PageHeader";
+import PageLayout from "@/components/PageLayout";
 import React from "react";
 
 const Relatorios = () => {
 	return (
-		<div className=" md:p-8">
-			<PageHeader title={"Relatórios"} />
-			<div className="flex items-center justify-center h-[85dvh] w-dvh text-muted-foreground text-xs">Em construção.</div>
-		</div>
+		<PageLayout displayName={"Relatórios"}>
+			<div></div>
+		</PageLayout>
 	);
 };
 
