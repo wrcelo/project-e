@@ -9,7 +9,7 @@ const LinkNavMenuDesktop = ({ path, icon, displayName }: { path: string; icon: R
 		<Link
 			href={`/${path}`}
 			className={`transition-all duration-150 ease-in-out p-3 h-10 w-full flex items-center gap-2 rounded-md ${
-				pathname == `/${path}` ? "text-foreground border-primary/30 " : "text-muted-foreground hover:text-foreground"
+				pathname == `/${path}` ? "text-foreground border-primary/30 " : "text-muted-foreground/70 hover:text-foreground"
 			}`}
 		>
 			{icon}

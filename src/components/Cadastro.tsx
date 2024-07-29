@@ -42,14 +42,14 @@ export const Cadastro = () => {
 		<div className="flex flex-col">
 			{etapa === 1 && (
 				<div>
-					<h2 className="mb-4 text-sm">Selecione o tipo de cadastro:</h2>
+					<h2 className="mb-4 text-sm text-muted-foreground">Selecione o tipo de cadastro:</h2>
 					<ToggleGroup
 						onValueChange={handleSelectTipoCadastro}
 						type="single"
-						className="grid grid-cols-2 grid-rows-2 gap-3"
+						className="grid grid-cols-2 grid-rows-2 md:grid-cols-1  gap-3"
 					>
 						<ToggleGroupItem
-							className={`h-24 flex items-center gap-2 ${tipo === "venda" ? "bg-accent" : ""}`}
+							className={`h-16 flex items-center md:justify-start md:h-12 md:px-4 gap-2 ${tipo === "venda" ? "bg-accent" : ""}`}
 							variant={"outline"}
 							value="venda"
 						>
@@ -57,7 +57,7 @@ export const Cadastro = () => {
 							Venda
 						</ToggleGroupItem>
 						<ToggleGroupItem
-							className={`h-24 flex items-center gap-2 ${tipo === "orcamento" ? "bg-accent" : ""}`}
+							className={`h-16 flex items-center md:justify-start md:h-12 md:px-4 gap-2 ${tipo === "orcamento" ? "bg-accent" : ""}`}
 							variant={"outline"}
 							value="orcamento"
 						>
@@ -65,7 +65,7 @@ export const Cadastro = () => {
 							Orçamento
 						</ToggleGroupItem>
 						<ToggleGroupItem
-							className={`h-24 flex items-center gap-2 ${tipo === "filial" ? "bg-accent" : ""}`}
+							className={`h-16 flex items-center md:justify-start md:h-12 md:px-4 gap-2 ${tipo === "filial" ? "bg-accent" : ""}`}
 							variant={"outline"}
 							value="filial"
 						>
@@ -73,7 +73,7 @@ export const Cadastro = () => {
 							Filial
 						</ToggleGroupItem>
 						<ToggleGroupItem
-							className={`h-24 flex items-center gap-2 ${tipo === "cliente" ? "bg-accent" : ""}`}
+							className={`h-16 flex items-center md:justify-start md:h-12 md:px-4 gap-2 ${tipo === "cliente" ? "bg-accent" : ""}`}
 							variant={"outline"}
 							value="cliente"
 						>
@@ -91,6 +91,7 @@ export const Cadastro = () => {
 			<div className="p-4 absolute bottom-0 left-0 w-full flex gap-2">
 				{etapa > 1 && (
 					<Button
+						className="md:h-12"
 						variant={"outline"}
 						onClick={handleVoltar}
 					>
@@ -101,7 +102,7 @@ export const Cadastro = () => {
 
 				<Button
 					onClick={handleProximo}
-					className="mt-auto w-full"
+					className="mt-auto w-full md:h-12"
 				>
 					{etapa == 2 ? "Cadastrar" : "Próximo"}
 					<MoveRight className="ml-3 w-5" />

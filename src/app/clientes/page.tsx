@@ -1,18 +1,17 @@
-import { Cadastro } from "@/components/Cadastro";
-import PageHeader from "@/components/PageHeader";
+import { ClientesTable } from "@/components/ClientesTable";
 import PageLayout from "@/components/PageLayout";
 import { LayoutList } from "lucide-react";
 import React from "react";
 
-const Cadastros = () => {
+const Clientes = () => {
 	return (
 		<PageLayout
-			displayName="Cadastros"
+			displayName={"Clientes"}
 			icon={<LayoutList className="w-4 h-4" />}
 		>
-			<Cadastro />
+			<ClientesTable />
 		</PageLayout>
 	);
 };
 
-export default Cadastros;
+export default Clientes;

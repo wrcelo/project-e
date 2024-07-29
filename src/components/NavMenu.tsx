@@ -20,7 +20,7 @@ const NavMenu = () => {
 	return (
 		<>
 			{pathname != "/" && (
-				<div className="h-20 w-full border-t bg-secondary/10 md:w-96 md:h-dvh md:py-6 md:border-r shadow">
+				<div className="h-20 w-full bg-secondary/10 md:w-96 md:h-dvh md:py-6 md:border-r">
 					<MenuMobile />
 					<MenuVertical />
 

@@ -6,6 +6,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import NavMenu from "@/components/NavMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Image from "next/image";
+import logo from "../../public/cmn.svg";
 
 const inter = Inter({ subsets: ["latin"] });
 

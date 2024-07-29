@@ -7,7 +7,7 @@ import React, { ReactNode } from "react";
 const LinkNavMenu = ({ path, displayName, icon }: { path: string; displayName: string; icon: ReactNode }) => {
 	const pathname = usePathname();
 	return (
-		<div className="flex items-cente justify-center w-full">
+		<div className="flex items-center justify-center w-full">
 			<Link
 				href={`/${path}`}
 				className={`transition-all duration-150 ease-in-out h-12 w-12 flex flex-col items-center justify-center rounded-full ${
