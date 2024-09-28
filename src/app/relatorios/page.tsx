@@ -17,9 +17,6 @@ const Relatorios = () => {
 					<div className="p-4 rounded-lg border hover:bg-foreground/5 transition-all duration-150">
 						<Relatorio />
 					</div>
-					<div className="p-4 rounded-lg border hover:bg-foreground/5 transition-all duration-150">
-						<Relatorio />
-					</div>
 				</div>
 			</div>
 		</PageLayout>

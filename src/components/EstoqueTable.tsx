@@ -25,194 +25,129 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import {
-	ChevronDown,
-	ChevronDownCircle,
-	ChevronLeft,
-	ChevronRight,
-	ClipboardCheck,
-	ClipboardCopy,
-	DotSquare,
-	List,
-	PlusIcon,
-	SortAsc,
-	User,
-} from "lucide-react";
-import { toast } from "sonner";
+import { ChevronDown, ChevronLeft, ChevronRight, List, Plus, Upload } from "lucide-react";
 
-const data: Cliente[] = [
+const data: ProdutoEstoque[] = [
 	{
-		uuid: "5a5fd7d8-456c-475e-9075-9025e22b5d28",
-		nome: "Pablo Vegetti",
-		telefone: "(32) 99783-8375",
-		email: "pablo.vegetti@gmail.com",
+		id: "7258",
+		nome: "Helanca",
+		cor: "Verde",
+		metrosEstoque: 200,
+		larguraTecidoEmMetro: 1.8,
 	},
 	{
-		uuid: "6b5fd7d8-456c-475e-9075-9025e22b5d29",
-		nome: "Maria Rezende",
-		telefone: "(11) 99999-8888",
-		email: "maria.rezende@gmail.com",
+		id: "7259",
+		nome: "Algodão",
+		cor: "Branco",
+		metrosEstoque: 150,
+		larguraTecidoEmMetro: 1.5,
 	},
 	{
-		uuid: "7c5fd7d8-456c-475e-9075-9025e22b5d30",
-		nome: "João Pereira",
-		telefone: "(21) 98888-7777",
-		email: "joao.pereira@example.com",
+		id: "7260",
+		nome: "Seda",
+		cor: "Vermelho",
+		metrosEstoque: 100,
+		larguraTecidoEmMetro: 1.2,
 	},
 	{
-		uuid: "8d5fd7d8-456c-475e-9075-9025e22b5d31",
-		nome: "Maria Oliveira",
-		telefone: "(31) 97777-6666",
-		email: "maria.oliveira@example.com",
+		id: "7261",
+		nome: "Jeans",
+		cor: "Azul",
+		metrosEstoque: 250,
+		larguraTecidoEmMetro: 1.6,
 	},
 	{
-		uuid: "9e5fd7d8-456c-475e-9075-9025e22b5d32",
-		nome: "Carlos Santos",
-		telefone: "(71) 96666-5555",
-		email: "carlos.santos@example.com",
+		id: "7262",
+		nome: "Linho",
+		cor: "Bege",
+		metrosEstoque: 80,
+		larguraTecidoEmMetro: 1.4,
 	},
 	{
-		uuid: "0f5fd7d8-456c-475e-9075-9025e22b5d33",
-		nome: "Fernanda Almeida",
-		telefone: "(51) 95555-4444",
-		email: "fernanda.almeida@example.com",
+		id: "7263",
+		nome: "Veludo",
+		cor: "Preto",
+		metrosEstoque: 60,
+		larguraTecidoEmMetro: 1.7,
 	},
 	{
-		uuid: "1g5fd7d8-456c-475e-9075-9025e22b5d34",
-		nome: "Ricardo Costa",
-		telefone: "(41) 94444-3333",
-		email: "ricardo.costa@example.com",
+		id: "7264",
+		nome: "Organza",
+		cor: "Rosa",
+		metrosEstoque: 120,
+		larguraTecidoEmMetro: 1.3,
 	},
 	{
-		uuid: "2h5fd7d8-456c-475e-9075-9025e22b5d35",
-		nome: "Juliana Rodrigues",
-		telefone: "(61) 93333-2222",
-		email: "juliana.rodrigues@example.com",
+		id: "7265",
+		nome: "Viscose",
+		cor: "Cinza",
+		metrosEstoque: 90,
+		larguraTecidoEmMetro: 1.5,
 	},
 	{
-		uuid: "3i5fd7d8-456c-475e-9075-9025e22b5d36",
-		nome: "Felipe Lima",
-		telefone: "(81) 92222-1111",
-		email: "felipe.lima@example.com",
+		id: "7266",
+		nome: "Malha Fria",
+		cor: "Amarelo",
+		metrosEstoque: 70,
+		larguraTecidoEmMetro: 1.8,
 	},
 	{
-		uuid: "4j5fd7d8-456c-475e-9075-9025e22b5d37",
-		nome: "Aline Souza",
-		telefone: "(91) 91111-0000",
-		email: "aline.souza@example.com",
-	},
-	{
-		uuid: "5k5fd7d8-456c-475e-9075-9025e22b5d38",
-		nome: "Gustavo Fernandes",
-		telefone: "(85) 90000-9999",
-		email: "gustavo.fernandes@example.com",
-	},
-	{
-		uuid: "6l5fd7d8-456c-475e-9075-9025e22b5d39",
-		nome: "Camila Carvalho",
-		telefone: "(62) 98888-8888",
-		email: "camila.carvalho@example.com",
-	},
-	{
-		uuid: "7m5fd7d8-456c-475e-9075-9025e22b5d40",
-		nome: "Leonardo Batista",
-		telefone: "(82) 97777-7777",
-		email: "leonardo.batista@example.com",
-	},
-	{
-		uuid: "8n5fd7d8-456c-475e-9075-9025e22b5d41",
-		nome: "Patrícia Gomes",
-		telefone: "(95) 96666-6666",
-		email: "patricia.gomes@example.com",
-	},
-	{
-		uuid: "9o5fd7d8-456c-475e-9075-9025e22b5d42",
-		nome: "Rafael Mendes",
-		telefone: "(84) 95555-5555",
-		email: "rafael.mendes@example.com",
-	},
-	{
-		uuid: "0p5fd7d8-456c-475e-9075-9025e22b5d43",
-		nome: "Bianca Araújo",
-		telefone: "(67) 94444-4444",
-		email: "bianca.araujo@example.com",
-	},
-	{
-		uuid: "1q5fd7d8-456c-475e-9075-9025e22b5d44",
-		nome: "Gabriel Ribeiro",
-		telefone: "(98) 93333-3333",
-		email: "gabriel.ribeiro@example.com",
-	},
-	{
-		uuid: "2r5fd7d8-456c-475e-9075-9025e22b5d45",
-		nome: "Mariana Barros",
-		telefone: "(79) 92222-2222",
-		email: "mariana.barros@example.com",
-	},
-	{
-		uuid: "3s5fd7d8-456c-475e-9075-9025e22b5d46",
-		nome: "Lucas Martins",
-		telefone: "(92) 91111-1111",
-		email: "lucas.martins@example.com",
-	},
-	{
-		uuid: "4t5fd7d8-456c-475e-9075-9025e22b5d47",
-		nome: "Isabela Ferreira",
-		telefone: "(65) 90000-0000",
-		email: "isabela.ferreira@example.com",
+		id: "7267",
+		nome: "Sarja",
+		cor: "Marrom",
+		metrosEstoque: 110,
+		larguraTecidoEmMetro: 1.6,
 	},
 ];
 
-export type Cliente = {
-	uuid: string;
+export type ProdutoEstoque = {
+	id: string;
 	nome: string;
-	email: string;
-	telefone: string;
+	cor: string;
+	metrosEstoque: number;
+	larguraTecidoEmMetro: number;
 };
 
-export const columns: ColumnDef<Cliente>[] = [
-	{
-		id: "select",
-		header: ({ table }) => (
-			<Checkbox
-				checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
-				onCheckedChange={(value: any) => table.toggleAllPageRowsSelected(!!value)}
-				aria-label="Selecionar todos"
-			/>
-		),
-		cell: ({ row }) => (
-			<Checkbox
-				checked={row.getIsSelected()}
-				onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-				aria-label="Select row"
-			/>
-		),
-		enableSorting: false,
-		enableHiding: false,
-	},
+export const columns: ColumnDef<ProdutoEstoque>[] = [
+	// {
+	// 	id: "select",
+	// 	header: ({ table }) => (
+	// 		<Checkbox
+	// 			checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
+	// 			onCheckedChange={(value: any) => table.toggleAllPageRowsSelected(!!value)}
+	// 			aria-label="Selecionar todos"
+	// 		/>
+	// 	),
+	// 	cell: ({ row }) => (
+	// 		<Checkbox
+	// 			checked={row.getIsSelected()}
+	// 			onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+	// 			aria-label="Select row"
+	// 		/>
+	// 	),
+	// 	enableSorting: false,
+	// 	enableHiding: false,
+	// },
 	{
 		accessorKey: "nome",
 		header: "Nome",
 		cell: ({ row }) => <div className="capitalize">{row.getValue("nome")}</div>,
 	},
 	{
-		accessorKey: "email",
-		header: "Email",
-		cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+		accessorKey: "cor",
+		header: "Cor",
+		cell: ({ row }) => <div className="">{row.getValue("cor")}</div>,
 	},
 	{
-		accessorKey: "telefone",
-		header: "Telefone",
-		cell: ({ row }) => <div className="lowercase">{row.getValue("telefone")}</div>,
+		accessorKey: "metrosEstoque",
+		header: "Estoque",
+		cell: ({ row }) => <div className="">{row.getValue("metrosEstoque")}</div>,
 	},
 	{
 		id: "actions",
 		enableHiding: false,
 		cell: ({ row }) => {
-			const payment = row.original;
-
 			return (
 				<div className="flex justify-end">
 					<DropdownMenu>
@@ -227,15 +162,6 @@ export const columns: ColumnDef<Cliente>[] = [
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
 							<DropdownMenuLabel>Ações</DropdownMenuLabel>
-							<DropdownMenuItem
-								onClick={() => {
-									navigator.clipboard.writeText(payment.telefone);
-									toast.success("Telefone copiado para a área de transferência.", { icon: <ClipboardCheck className="w-4 h-4" />, position: "top-right" });
-								}}
-							>
-								Copiar telefone
-								<ClipboardCopy className="w-4 h-4 ml-2" />
-							</DropdownMenuItem>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem>Ver detalhes</DropdownMenuItem>
 							<DropdownMenuItem>Excluir</DropdownMenuItem>
@@ -247,7 +173,7 @@ export const columns: ColumnDef<Cliente>[] = [
 	},
 ];
 
-export function ClientesTable() {
+export function EstoqueTable() {
 	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -275,7 +201,19 @@ export function ClientesTable() {
 	return (
 		<div className="w-full">
 			<div className="flex items-center py-4">
-				<Button className="gap-2 flex">Adicionar</Button>
+				<div className="flex gap-2">
+					<Button className="gap-2 flex">
+						Adicionar
+						<Plus className="w-4 h-4" />
+					</Button>
+					<Button
+						variant={"outline"}
+						className="gap-2 flex"
+					>
+						Importar
+						<Upload className="w-4 h-4" />
+					</Button>
+				</div>
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button

@@ -8,7 +8,7 @@ const PageLayout = ({ children, displayName, icon }: { children: ReactNode; disp
 				title={displayName}
 				icon={icon}
 			/>
-			<div className="px-6 py-3 md:px-8">{children}</div>
+			<div className="px-6 py-3 md:px-8 pb-28">{children}</div>
 		</div>
 	);
 };
