@@ -17,6 +17,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { ChevronRight } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { useLoader } from "@/lib/LoaderProvider";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { estadosBrasileiros } from "@/lib/utils";
 
 const formSchema = z.object({
 	nome: z.string().min(2, {
@@ -76,6 +78,7 @@ export const Cadastro = () => {
 			var url = "https://viacep.com.br/ws/" + cep + "/json/";
 			fetch(url)
 				.then((response) => {
+					console.log("start");
 					loader.start();
 					if (!response.ok) {
 						throw new Error("Erro ao obter os dados do endereço");
@@ -84,7 +87,7 @@ export const Cadastro = () => {
 				})
 				.then((data) => {
 					if (data.erro) {
-						toast("CEP inválido", {
+						toast.error("CEP inválido", {
 							description: "Digite novamente o CEP",
 						});
 					}
@@ -191,27 +194,51 @@ export const Cadastro = () => {
 						className="space-y-4"
 					>
 						<div className={`flex text-xs `}>
-							{etapa > 1 && <span className={`content-center max-w-22 ${etapa != 2 ? "truncate" : ""}`}>Dados básicos</span>}
+							{etapa > 1 && (
+								<span
+									onClick={() => {
+										setEtapa(2);
+									}}
+									className={`cursor-pointer hover:underline content-center max-w-22 ${etapa != 2 ? "truncate" : ""}`}
+								>
+									Dados básicos
+								</span>
+							)}
 							{etapa > 2 && (
-								<div className="flex items-center">
+								<div
+									className="flex items-center cursor-pointer hover:underline"
+									onClick={() => {
+										setEtapa(3);
+									}}
+								>
 									<ChevronRight className="w-3 mx-1" />
 									<span className={`content-center max-w-20 ${etapa != 2 ? "truncate" : ""}`}>Endereço</span>
 								</div>
 							)}
 							{etapa > 3 && (
-								<div className="flex items-center">
+								<div
+									className="flex items-center cursor-pointer hover:underline"
+									onClick={() => {
+										setEtapa(4);
+									}}
+								>
 									<ChevronRight className="w-3 mx-1" />
 									<span className={`content-center max-w-20 ${etapa != 2 ? "truncate" : ""}`}>Contato</span>
 								</div>
 							)}
 							{etapa > 4 && (
-								<div className="flex items-center">
+								<div
+									className="flex items-center cursor-pointer hover:underline"
+									onClick={() => {
+										setEtapa(5);
+									}}
+								>
 									<ChevronRight className="w-3 mx-1" />
 									<span className={`content-center max-w-20 ${etapa != 2 ? "truncate" : ""}`}>Observação</span>
 								</div>
 							)}
 						</div>
-						<Separator />
+
 						<div className="md:grid md:grid-cols-12 gap-4">
 							{/* Dados básicos */}
 							{etapa == 2 && (
@@ -285,7 +312,26 @@ export const Cadastro = () => {
 											<FormItem className="md:col-span-2 xl:col-span-1">
 												<FormLabel>Estado</FormLabel>
 												<FormControl>
-													<Input {...field} />
+													<Select
+														{...field}
+														onValueChange={field.onChange}
+													>
+														<SelectTrigger>
+															<SelectValue placeholder="UF" />
+														</SelectTrigger>
+														<SelectContent>
+															<SelectGroup>
+																{estadosBrasileiros.map((estado) => (
+																	<SelectItem
+																		key={estado.sigla}
+																		value={estado.sigla}
+																	>
+																		{estado.sigla}
+																	</SelectItem>
+																))}
+															</SelectGroup>
+														</SelectContent>
+													</Select>
 												</FormControl>
 												<FormMessage />
 											</FormItem>
