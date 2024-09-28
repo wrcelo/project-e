@@ -16,6 +16,7 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { ChevronRight } from "lucide-react";
 import { Separator } from "./ui/separator";
+import { useLoader } from "@/lib/LoaderProvider";
 
 const formSchema = z.object({
 	nome: z.string().min(2, {
@@ -34,6 +35,7 @@ const ToastErroFormulario = ({ campo, mensagem }: { campo: string; mensagem?: st
 };
 
 export const Cadastro = () => {
+	const loader = useLoader();
 	const [tipo, setTipo] = useState<string>("");
 	const [etapa, setEtapa] = useState<number>(1);
 
@@ -66,6 +68,37 @@ export const Cadastro = () => {
 
 	const isCadastroFilialCompleto = (etapa: number, tipo: string) => {
 		return etapa == 5 && tipo == "filial";
+	};
+
+	const handleCep = (e: any) => {
+		const cep = e.target.value;
+		if (cep.length == 8) {
+			var url = "https://viacep.com.br/ws/" + cep + "/json/";
+			fetch(url)
+				.then((response) => {
+					loader.start();
+					if (!response.ok) {
+						throw new Error("Erro ao obter os dados do endereço");
+					}
+					return response.json();
+				})
+				.then((data) => {
+					if (data.erro) {
+						toast("CEP inválido", {
+							description: "Digite novamente o CEP",
+						});
+					}
+					form.setValue("endereco.cidade", data.localidade);
+					form.setValue("endereco.estado", data.uf);
+					form.setValue("endereco.logradouro", data.logradouro);
+					form.setValue("endereco.bairro", data.bairro);
+					loader.stop();
+				})
+				.catch((e) => {
+					console.error("Ocorreu um erro: ", e);
+					loader.stop();
+				});
+		}
 	};
 
 	const handleProximo = async () => {
@@ -151,7 +184,7 @@ export const Cadastro = () => {
 				</div>
 			)}
 
-			{tipo == "filial" && (
+			{tipo == "filial" && etapa != 1 && (
 				<Form {...form}>
 					<form
 						onSubmit={form.handleSubmit(onSubmit)}
@@ -179,217 +212,230 @@ export const Cadastro = () => {
 							)}
 						</div>
 						<Separator />
-						{etapa == 2 && (
-							<>
-								<FormField
-									control={form.control}
-									name="nome"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Nome</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="numeroCnpj"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>CNPJ</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="inscricaoEstadual"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Inscrição Estadual</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-							</>
-						)}
-						{etapa == 3 && (
-							<>
-								<FormField
-									control={form.control}
-									name="endereco.estado"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Estado</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="endereco.cidade"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Cidade</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="endereco.bairro"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Bairro</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="endereco.logradouro"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Logradouro</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="endereco.numero"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Número</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="endereco.complemento"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Complemento</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="endereco.cep"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>CEP</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-							</>
-						)}
-						{etapa == 4 && (
-							<>
-								<FormField
-									control={form.control}
-									name="fax"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Fax</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="enderecoEmail"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Email</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="telefone"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Telefone</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="site"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Site</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-							</>
-						)}
-						{etapa == 5 && (
-							<>
-								<FormField
-									control={form.control}
-									name="observacao"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Observação</FormLabel>
-											<FormControl>
-												<Textarea {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-							</>
-						)}
+						<div className="md:grid md:grid-cols-12 gap-4">
+							{/* Dados básicos */}
+							{etapa == 2 && (
+								<>
+									<FormField
+										control={form.control}
+										name="nome"
+										render={({ field }) => (
+											<FormItem className="col-span-5">
+												<FormLabel>Nome</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+
+									<FormField
+										control={form.control}
+										name="numeroCnpj"
+										render={({ field }) => (
+											<FormItem className="col-span-3">
+												<FormLabel>CNPJ</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="inscricaoEstadual"
+										render={({ field }) => (
+											<FormItem className="col-span-4">
+												<FormLabel className="truncate">Inscrição Estadual</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</>
+							)}
+
+							{/* Endereço */}
+							{etapa == 3 && (
+								<>
+									<FormField
+										control={form.control}
+										name="endereco.cep"
+										render={({ field }) => (
+											<FormItem className="md:col-span-3 xl:col-span-2">
+												<FormLabel>CEP</FormLabel>
+												<FormControl>
+													<Input
+														onInput={handleCep}
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="endereco.estado"
+										render={({ field }) => (
+											<FormItem className="md:col-span-2 xl:col-span-1">
+												<FormLabel>Estado</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="endereco.cidade"
+										render={({ field }) => (
+											<FormItem className="md:col-span-4 xl:col-span-3">
+												<FormLabel>Cidade</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="endereco.bairro"
+										render={({ field }) => (
+											<FormItem className="md:col-span-3 xl:col-span-3">
+												<FormLabel>Bairro</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="endereco.logradouro"
+										render={({ field }) => (
+											<FormItem className="md:col-span-5 xl:col-span-3">
+												<FormLabel>Logradouro</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="endereco.numero"
+										render={({ field }) => (
+											<FormItem className="md:col-span-2 xl:col-span-1">
+												<FormLabel>Número</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="endereco.complemento"
+										render={({ field }) => (
+											<FormItem className="md:col-span-5 xl:col-span-3">
+												<FormLabel>Complemento</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</>
+							)}
+
+							{/* Contato */}
+							{etapa == 4 && (
+								<>
+									<FormField
+										control={form.control}
+										name="fax"
+										render={({ field }) => (
+											<FormItem className="md:col-span-4 xl:col-span-2">
+												<FormLabel>Fax</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="enderecoEmail"
+										render={({ field }) => (
+											<FormItem className="md:col-span-4 xl:col-span-3">
+												<FormLabel>Email</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="telefone"
+										render={({ field }) => (
+											<FormItem className="md:col-span-4 xl:col-span-2">
+												<FormLabel>Telefone</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="site"
+										render={({ field }) => (
+											<FormItem className="md:col-span-5 xl:col-span-3">
+												<FormLabel>Site</FormLabel>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</>
+							)}
+
+							{/* Observação */}
+							{etapa == 5 && (
+								<>
+									<FormField
+										control={form.control}
+										name="observacao"
+										render={({ field }) => (
+											<FormItem className="md:col-span-12">
+												<FormLabel>Observação</FormLabel>
+												<FormControl>
+													<Textarea {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</>
+							)}
+						</div>
 					</form>
 				</Form>
 			)}

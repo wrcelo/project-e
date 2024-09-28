@@ -8,6 +8,8 @@ import NavMenu from "@/components/NavMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
 import logo from "../../public/cmn.svg";
+import { LoaderProvider } from "@/lib/LoaderProvider";
+import { Loader } from "@/components/Loader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,9 +37,12 @@ export default function RootLayout({
 						disableTransitionOnChange
 					>
 						<div className="md:flex md:flex-row-reverse ">
-							<ScrollArea className="h-[calc(100dvh-80px)] md:h-dvh md:w-full">
-								<main>{children}</main>
-							</ScrollArea>
+							<LoaderProvider>
+								<Loader />
+								<ScrollArea className="h-[calc(100dvh-80px)] md:h-dvh md:w-full">
+									<main>{children}</main>
+								</ScrollArea>
+							</LoaderProvider>
 							<NavMenu />
 						</div>
 					</ThemeProvider>
