@@ -19,6 +19,17 @@ import { Separator } from "./ui/separator";
 import { useLoader } from "@/lib/LoaderProvider";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { estadosBrasileiros } from "@/lib/utils";
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from "./ui/alert-dialog";
 
 const formSchema = z.object({
 	nome: z.string().min(2, {
@@ -40,6 +51,7 @@ export const Cadastro = () => {
 	const loader = useLoader();
 	const [tipo, setTipo] = useState<string>("");
 	const [etapa, setEtapa] = useState<number>(1);
+	const [modalConfirmacao, setModalConfirmacao] = useState(false);
 
 	const form = useForm({
 		resolver: zodResolver(formSchema),
@@ -104,12 +116,15 @@ export const Cadastro = () => {
 		}
 	};
 
+	const handleSubmit = () => {
+		const data = form.getValues();
+		onSubmit(data);
+	};
 	const handleProximo = async () => {
 		if (isCadastroFilialCompleto(etapa, tipo)) {
-			const data = form.getValues();
 			const isValid = await form.trigger();
 			if (isValid) {
-				onSubmit(data);
+				setModalConfirmacao(true);
 			} else {
 				Object.keys(form.formState.errors).forEach((key) => {
 					const error = form.formState.errors[key as ErrorKeys];
@@ -139,6 +154,7 @@ export const Cadastro = () => {
 	const onSubmit = (data: any) => {
 		console.log(data);
 		toast.success("Filial cadastrada com sucesso", { position: "top-right" });
+		setModalConfirmacao(false);
 	};
 
 	return (
@@ -487,6 +503,18 @@ export const Cadastro = () => {
 			)}
 
 			<div className="p-4 absolute bottom-0 left-0 w-full flex gap-2">
+				<AlertDialog open={modalConfirmacao}>
+					<AlertDialogContent>
+						<AlertDialogHeader>
+							<AlertDialogTitle>Cadastro de filial</AlertDialogTitle>
+							<AlertDialogDescription>Você tem certeza que deseja cadastrar uma filial?</AlertDialogDescription>
+						</AlertDialogHeader>
+						<AlertDialogFooter>
+							<AlertDialogCancel onClick={() => setModalConfirmacao(false)}>Não</AlertDialogCancel>
+							<AlertDialogAction onClick={handleSubmit}>Sim</AlertDialogAction>
+						</AlertDialogFooter>
+					</AlertDialogContent>
+				</AlertDialog>
 				{etapa > 1 && (
 					<Button
 						variant={"outline"}
