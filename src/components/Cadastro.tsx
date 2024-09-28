@@ -42,15 +42,13 @@ const formSchema = z.object({
 	enderecoEmail: z.string().email({ message: "Digite um e-mail válido." }),
 	site: z.string().url({ message: "Digite uma URL válida." }).optional(),
 	observacao: z.string().max(500, "A observação não pode ultrapassar 500 caracteres.").optional(),
-	endereco: z.object({
-		estado: z.string().min(2, "O campo deve conter no mínimo 2 caracteres."),
-		cidade: z.string().min(2, "O campo deve conter no mínimo 2 caracteres."),
-		bairro: z.string().min(2, "O campo deve conter no mínimo 2 caracteres."),
-		logradouro: z.string().min(2, "O campo deve conter no mínimo 2 caracteres."),
-		numero: z.string().max(10, "O número não pode ultrapassar 10 caracteres."),
-		complemento: z.string().optional(),
-		cep: z.string().min(8, "O campo deve conter 8 caracteres.").max(8, "O campo deve conter 8 caracteres."),
-	}),
+	estado: z.string().min(2, "O campo deve conter no mínimo 2 caracteres."),
+	cidade: z.string().min(2, "O campo deve conter no mínimo 2 caracteres."),
+	bairro: z.string().min(2, "O campo deve conter no mínimo 2 caracteres."),
+	logradouro: z.string().min(2, "O campo deve conter no mínimo 2 caracteres."),
+	numero: z.string().max(10, "O número não pode ultrapassar 10 caracteres."),
+	complemento: z.string().optional(),
+	cep: z.string().min(8, "O campo deve conter 8 caracteres.").max(8, "O campo deve conter 8 caracteres."),
 });
 
 export const Cadastro = () => {
@@ -70,15 +68,13 @@ export const Cadastro = () => {
 			enderecoEmail: "",
 			site: "",
 			observacao: "",
-			endereco: {
-				estado: "",
-				cidade: "",
-				bairro: "",
-				logradouro: "",
-				numero: "",
-				complemento: "",
-				cep: "",
-			},
+			estado: "",
+			cidade: "",
+			bairro: "",
+			logradouro: "",
+			numero: "",
+			complemento: "",
+			cep: "",
 		},
 	});
 	type ErrorKeys = keyof typeof form.formState.errors;
@@ -109,10 +105,10 @@ export const Cadastro = () => {
 							description: "Digite novamente o CEP",
 						});
 					}
-					form.setValue("endereco.cidade", data.localidade);
-					form.setValue("endereco.estado", data.uf);
-					form.setValue("endereco.logradouro", data.logradouro);
-					form.setValue("endereco.bairro", data.bairro);
+					form.setValue("cidade", data.localidade);
+					form.setValue("estado", data.uf);
+					form.setValue("logradouro", data.logradouro);
+					form.setValue("bairro", data.bairro);
 					loader.stop();
 				})
 				.catch((e) => {
@@ -312,7 +308,7 @@ export const Cadastro = () => {
 								<>
 									<FormField
 										control={form.control}
-										name="endereco.cep"
+										name="cep"
 										render={({ field }) => (
 											<FormItem className="md:col-span-3 xl:col-span-2">
 												<FormLabel>CEP</FormLabel>
@@ -328,7 +324,7 @@ export const Cadastro = () => {
 									/>
 									<FormField
 										control={form.control}
-										name="endereco.estado"
+										name="estado"
 										render={({ field }) => (
 											<FormItem className="md:col-span-2 xl:col-span-1">
 												<FormLabel>Estado</FormLabel>
@@ -360,7 +356,7 @@ export const Cadastro = () => {
 									/>
 									<FormField
 										control={form.control}
-										name="endereco.cidade"
+										name="cidade"
 										render={({ field }) => (
 											<FormItem className="md:col-span-4 xl:col-span-3">
 												<FormLabel>Cidade</FormLabel>
@@ -373,7 +369,7 @@ export const Cadastro = () => {
 									/>
 									<FormField
 										control={form.control}
-										name="endereco.bairro"
+										name="bairro"
 										render={({ field }) => (
 											<FormItem className="md:col-span-3 xl:col-span-3">
 												<FormLabel>Bairro</FormLabel>
@@ -386,7 +382,7 @@ export const Cadastro = () => {
 									/>
 									<FormField
 										control={form.control}
-										name="endereco.logradouro"
+										name="logradouro"
 										render={({ field }) => (
 											<FormItem className="md:col-span-5 xl:col-span-3">
 												<FormLabel>Logradouro</FormLabel>
@@ -399,7 +395,7 @@ export const Cadastro = () => {
 									/>
 									<FormField
 										control={form.control}
-										name="endereco.numero"
+										name="numero"
 										render={({ field }) => (
 											<FormItem className="md:col-span-2 xl:col-span-1">
 												<FormLabel>Número</FormLabel>
@@ -412,7 +408,7 @@ export const Cadastro = () => {
 									/>
 									<FormField
 										control={form.control}
-										name="endereco.complemento"
+										name="complemento"
 										render={({ field }) => (
 											<FormItem className="md:col-span-5 xl:col-span-3">
 												<FormLabel>Complemento</FormLabel>
