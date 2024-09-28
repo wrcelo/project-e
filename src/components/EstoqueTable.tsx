@@ -199,18 +199,19 @@ export function EstoqueTable() {
 	});
 
 	return (
-		<div className="w-full">
+		<div className="w-fulls">
 			<div className="flex items-center py-4">
 				<div className="flex gap-2">
-					<Button className="gap-2 flex">
-						Adicionar
+					<Button className="gap-2 flex px-3 sm:px-4">
+						<span className="hidden sm:block">Adicionar</span>
 						<Plus className="w-4 h-4" />
 					</Button>
 					<Button
-						variant={"outline"}
+						variant={"secondary"}
 						className="gap-2 flex"
 					>
-						Importar
+						<span className="text-xs sm:text-sm">Importar</span>
+
 						<Upload className="w-4 h-4" />
 					</Button>
 				</div>
@@ -220,7 +221,8 @@ export function EstoqueTable() {
 							variant="outline"
 							className="ml-auto"
 						>
-							Colunas <ChevronDown className="ml-2 h-4 w-4" />
+							<span className="text-xs sm:text-sm">Colunas</span>
+							<ChevronDown className="ml-2 h-4 w-4" />
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
@@ -271,7 +273,7 @@ export function EstoqueTable() {
 									colSpan={columns.length}
 									className="h-24 text-center"
 								>
-									No results.
+									Nenhum resultado foi
 								</TableCell>
 							</TableRow>
 						)}

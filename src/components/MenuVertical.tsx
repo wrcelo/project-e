@@ -1,6 +1,6 @@
 import React from "react";
 import LinkNavMenuDesktop from "./LinkNavMenuDesktop";
-import { Home, LayoutList, ArchiveIcon, LineChartIcon, Wallet, Package, ShoppingCart, PlusCircle } from "lucide-react";
+import { Home, LayoutList, ArchiveIcon, LineChartIcon, Wallet, Package, ShoppingCart, PlusCircle, Building, Building2 } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 import Settings from "./Settings";
 
@@ -45,6 +45,11 @@ const MenuVertical = ({ onSelect }: { onSelect?: any }) => {
 					path={"cadastros"}
 					displayName={"Cadastros"}
 					icon={<PlusCircle className="w-4 h-4" />}
+				/>
+				<LinkNavMenuDesktop
+					path={"filiais"}
+					displayName={"Filiais"}
+					icon={<Building2 className="w-4 h-4" />}
 				/>
 			</ScrollArea>
 			<Settings />

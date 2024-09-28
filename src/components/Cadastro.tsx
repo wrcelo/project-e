@@ -38,15 +38,6 @@ const formSchema = z.object({
 	numeroCnpj: z.string().max(14, "Campo não deve ultrapassar 14 caracteres. Lorem ipsum dolor sit amet"),
 });
 
-const ToastErroFormulario = ({ campo, mensagem }: { campo: string; mensagem?: string }) => {
-	return (
-		<>
-			<span className="font-semibold text-xs">{campo}: </span>
-			<span className="text-xs">{mensagem}</span>
-		</>
-	);
-};
-
 export const Cadastro = () => {
 	const loader = useLoader();
 	const [tipo, setTipo] = useState<string>("");
@@ -128,13 +119,10 @@ export const Cadastro = () => {
 			} else {
 				Object.keys(form.formState.errors).forEach((key) => {
 					const error = form.formState.errors[key as ErrorKeys];
-					toast.error(
-						<ToastErroFormulario
-							campo={key.charAt(0).toUpperCase() + key.slice(1)}
-							mensagem={error?.message}
-						/>,
-						{ position: "top-right", closeButton: true }
-					);
+					toast(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${error?.message}`, {
+						position: "top-right",
+						closeButton: true,
+					});
 				});
 			}
 			return;

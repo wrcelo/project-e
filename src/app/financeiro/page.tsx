@@ -9,7 +9,7 @@ const Financeiro = () => {
 			displayName={"Financeiro"}
 			icon={<Wallet className="w-4 h-4" />}
 		>
-			<div></div>
+			<div className="text-muted-foreground">Em construção...</div>
 		</PageLayout>
 	);
 };
