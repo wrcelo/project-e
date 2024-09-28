@@ -35,7 +35,22 @@ const formSchema = z.object({
 	nome: z.string().min(2, {
 		message: "O campo deve conter no mínimo 2 caracteres",
 	}),
-	numeroCnpj: z.string().max(14, "Campo não deve ultrapassar 14 caracteres. Lorem ipsum dolor sit amet"),
+	numeroCnpj: z.string().min(14, "O campo deve conter 14 caracteres.").max(14, "O campo deve conter 14 caracteres."),
+	inscricaoEstadual: z.string().min(9, "O campo deve conter no mínimo 9 caracteres.").max(14, "O campo não deve ultrapassar 14 caracteres."),
+	telefone: z.string().min(10, "O telefone deve conter no mínimo 10 dígitos.").max(11, "O telefone deve conter no máximo 11 dígitos."),
+	fax: z.string().max(11, "O fax deve conter no máximo 11 dígitos.").optional(),
+	enderecoEmail: z.string().email({ message: "Digite um e-mail válido." }),
+	site: z.string().url({ message: "Digite uma URL válida." }).optional(),
+	observacao: z.string().max(500, "A observação não pode ultrapassar 500 caracteres.").optional(),
+	endereco: z.object({
+		estado: z.string().min(2, "O campo deve conter no mínimo 2 caracteres."),
+		cidade: z.string().min(2, "O campo deve conter no mínimo 2 caracteres."),
+		bairro: z.string().min(2, "O campo deve conter no mínimo 2 caracteres."),
+		logradouro: z.string().min(2, "O campo deve conter no mínimo 2 caracteres."),
+		numero: z.string().max(10, "O número não pode ultrapassar 10 caracteres."),
+		complemento: z.string().optional(),
+		cep: z.string().min(8, "O campo deve conter 8 caracteres.").max(8, "O campo deve conter 8 caracteres."),
+	}),
 });
 
 export const Cadastro = () => {
@@ -119,10 +134,12 @@ export const Cadastro = () => {
 			} else {
 				Object.keys(form.formState.errors).forEach((key) => {
 					const error = form.formState.errors[key as ErrorKeys];
-					toast(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${error?.message}`, {
-						position: "top-right",
-						closeButton: true,
-					});
+					if (error?.message != undefined) {
+						toast(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${error?.message}`, {
+							position: "top-right",
+							closeButton: true,
+						});
+					}
 				});
 			}
 			return;
