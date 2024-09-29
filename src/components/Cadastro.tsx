@@ -19,6 +19,7 @@ import { Separator } from "./ui/separator";
 import { useLoader } from "@/lib/LoaderProvider";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { estadosBrasileiros } from "@/lib/utils";
+import axios from "axios";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -30,6 +31,7 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "./ui/alert-dialog";
+import { Filiais } from "./FiliaisTable";
 
 const formSchema = z.object({
 	nome: z.string().min(2, {
@@ -153,8 +155,36 @@ export const Cadastro = () => {
 	};
 
 	const onSubmit = (data: any) => {
-		console.log(data);
-		toast.success("Filial cadastrada com sucesso", { position: "top-right" });
+		console.log("data", data);
+		const postData = {
+			nome: data.nome,
+			cnpj: {
+				numeroCnpj: data.numeroCnpj,
+			},
+			inscricaoEstadual: data.inscricaoEstadual,
+			telefone: data.telefone,
+			fax: data.fax,
+			email: {
+				enderecoEmail: data.enderecoEmail,
+			},
+			site: data.site,
+			observacao: data.observacao,
+			endereco: {
+				estado: data.estado,
+				cidade: data.cidade,
+				bairro: data.bairro,
+				logradouro: data.logradouro,
+				numero: data.numero,
+				complemento: data.complemento,
+				cep: data.cep,
+			},
+		};
+		console.log("postData", postData);
+
+		axios.post("https://localhost:44317/api/filial/v1/cadastrar", postData).then((response) => {
+			console.log(response);
+			toast.success("Filial cadastrada com sucesso", { position: "top-right" });
+		});
 		setModalConfirmacao(false);
 	};
 

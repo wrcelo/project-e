@@ -26,10 +26,21 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ChevronDown, ChevronLeft, ChevronRight, List, Plus, Upload } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, List, LoaderCircle, Plus, Upload } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+} from "./ui/alert-dialog";
+import { toast } from "sonner";
 
 export type Filiais = {
 	nome: string;
@@ -59,25 +70,50 @@ export function FiliaisTable() {
 	const [isDetalhesOpen, setIsDetalhesOpen] = useState(false);
 	const [dadosDetalhes, setDadosDetalhes] = useState<Filiais>();
 	const [data, setData] = useState<Filiais[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [isAlertaRemoverFilialOpen, setIsAlertaRemoverFilialOpen] = useState(false);
 
-	useEffect(() => {
+	const handleFetch = () => {
 		axios
-			.get("http://130.185.238.189:5000/api/filial/v1/listar")
+			.get("https://localhost:44317/api/filial/v1/listar")
 			.then((response: any) => {
-				setData(response);
+				setIsLoading(true);
+				setData(response.data);
+				setIsLoading(false);
 			})
 			.catch((error) => {
 				console.error(error);
+				setIsLoading(false);
 			});
+	};
+	useEffect(() => {
+		handleFetch();
 
 		return () => {};
 	}, []);
+
+	const handleConcluirExcluirFilial = (cnpj: string | undefined) => {
+		if (cnpj == undefined) {
+			toast.error("Algo deu errado ao fazer a requisição");
+			return;
+		}
+		axios.delete(`https://localhost:44317/api/filial/v1/excluir/cnpj/${cnpj}`).then((response) => {
+			if (response.status == 204) {
+				toast.success("Filial excluída com sucesso", { position: "top-right" });
+				handleFetch();
+			}
+		});
+	};
 
 	const handleClickDetalhes = (row: any) => {
 		setDadosDetalhes(row);
 		setIsDetalhesOpen(true);
 	};
 
+	const handleAbrirModalConfirmarExclusao = (dados: any) => {
+		setDadosDetalhes(dados);
+		setIsAlertaRemoverFilialOpen(true);
+	};
 	const columns: ColumnDef<Filiais>[] = [
 		{
 			id: "select",
@@ -133,7 +169,7 @@ export function FiliaisTable() {
 								<DropdownMenuLabel>Ações</DropdownMenuLabel>
 								<DropdownMenuSeparator />
 								<DropdownMenuItem onClick={() => handleClickDetalhes(row.original)}>Ver detalhes</DropdownMenuItem>
-								<DropdownMenuItem>Excluir</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => handleAbrirModalConfirmarExclusao(row.original)}>Excluir</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>
 					</div>
@@ -236,7 +272,13 @@ export function FiliaisTable() {
 									colSpan={columns.length}
 									className="h-24 text-center"
 								>
-									Nenhum resultado foi encontrado
+									{isLoading ? (
+										<div className="flex items-center justify-center w-full h-full">
+											<LoaderCircle className="animate-spin" />
+										</div>
+									) : (
+										"Nenhum resultado foi encontrado"
+									)}
 								</TableCell>
 							</TableRow>
 						)}
@@ -266,6 +308,21 @@ export function FiliaisTable() {
 					</Button>
 				</div>
 			</div>
+			<AlertDialog
+				open={isAlertaRemoverFilialOpen}
+				onOpenChange={setIsAlertaRemoverFilialOpen}
+			>
+				<AlertDialogContent>
+					<AlertDialogHeader>
+						<AlertDialogTitle>Excluir filial {dadosDetalhes?.nome}</AlertDialogTitle>
+						<AlertDialogDescription>Esta ação não pode ser desfeita. Isso excluirá permanentemente essa filial e removerá seus dados.</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
+						<AlertDialogCancel onClick={() => setIsAlertaRemoverFilialOpen(false)}>Cancelar</AlertDialogCancel>
+						<AlertDialogAction onClick={() => handleConcluirExcluirFilial(dadosDetalhes?.cnpj)}>Continuar</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
 			<Dialog
 				open={isDetalhesOpen}
 				onOpenChange={setIsDetalhesOpen}
