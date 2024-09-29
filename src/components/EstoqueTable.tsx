@@ -273,7 +273,7 @@ export function EstoqueTable() {
 									colSpan={columns.length}
 									className="h-24 text-center"
 								>
-									Nenhum resultado foi
+									Nenhum resultado foi encontrado
 								</TableCell>
 							</TableRow>
 						)}
