@@ -28,104 +28,8 @@ import {
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ChevronDown, ChevronLeft, ChevronRight, List, Plus, Upload } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-
-const data: Filiais[] = [
-	{
-		nome: "GM2 IMPORTCAO E EXPORTACAO LTDA (FILIAL)",
-		cnpj: "10.250.443/0002-75",
-		inscricaoEstadual: "082583021",
-		telefone: "3234220806",
-		fax: "",
-		email: "comercial@grupogm2.com.br",
-		site: "",
-		observacao: null,
-		endereco: {
-			estado: "ESPIRITO SANTO",
-			cidade: "SERRA",
-			bairro: "PORTAL DO JACARAIPE",
-			logradouro: "AV TALMA RODRIGUES RIBEIRO",
-			numero: "1251",
-			complemento: "SALA 02",
-			cep: "29.173-795",
-		},
-	},
-	{
-		nome: "GM2 IMPORTACAO E EXPORTACAO LTDA",
-		cnpj: "10.250.443/0001-94",
-		inscricaoEstadual: "0010840160046",
-		telefone: "3234220806",
-		fax: "",
-		email: "comercial@grupogm2.com.br",
-		site: "",
-		observacao: null,
-		endereco: {
-			estado: "MINAS GERAIS",
-			cidade: "CATAGUASES",
-			bairro: "SANTA CLARA",
-			logradouro: "AV DAS INDUSTRIAS ",
-			numero: "280",
-			complemento: "",
-			cep: "36.770-970",
-		},
-	},
-	{
-		nome: "GM2 IMPORTACAO E EXPORTACAO LTDA (Filial 2)",
-		cnpj: "10.250.443/0003-56",
-		inscricaoEstadual: "0010840160127",
-		telefone: "3234220806",
-		fax: "",
-		email: "comercial@grupogm2.com.br",
-		site: "",
-		observacao: null,
-		endereco: {
-			estado: "MINAS GERAIS",
-			cidade: "CATAGUASES",
-			bairro: "INDUSTRIAL",
-			logradouro: "AVENIDA MANOEL INÁCIO PEIXOTO",
-			numero: "1383",
-			complemento: "E",
-			cep: "36.771-000",
-		},
-	},
-	{
-		nome: "Filial GM2 Santana - The Best City of World",
-		cnpj: "35.459.887/0001-65",
-		inscricaoEstadual: "00",
-		telefone: "3000",
-		fax: "",
-		email: "gm2-santana@gm2.com.br",
-		site: "",
-		observacao: null,
-		endereco: {
-			estado: "MINAS GERAIS",
-			cidade: "SANTANA DE CATAGUASES",
-			bairro: "Centro",
-			logradouro: "Rua Pereira Amarante",
-			numero: "10",
-			complemento: "",
-			cep: "36795000",
-		},
-	},
-	{
-		nome: "Filial GM2 Santana - The Best City of World",
-		cnpj: "35459887000165",
-		inscricaoEstadual: "00",
-		telefone: "3000",
-		fax: "",
-		email: "gm2-santana@gm2.com.br",
-		site: "",
-		observacao: null,
-		endereco: {
-			estado: "MINAS GERAIS",
-			cidade: "SANTANA DE CATAGUASES",
-			bairro: "SAO BENEDITO",
-			logradouro: "Rua Pereira Amarante",
-			numero: "10",
-			complemento: "",
-			cep: "36795000",
-		},
-	},
-];
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export type Filiais = {
 	nome: string;
@@ -148,12 +52,26 @@ export type Filiais = {
 };
 
 export function FiliaisTable() {
-	const [sorting, setSorting] = React.useState<SortingState>([]);
-	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-	const [rowSelection, setRowSelection] = React.useState({});
-	const [isDetalhesOpen, setIsDetalhesOpen] = React.useState(false);
-	const [dadosDetalhes, setDadosDetalhes] = React.useState<Filiais>();
+	const [sorting, setSorting] = useState<SortingState>([]);
+	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+	const [rowSelection, setRowSelection] = useState({});
+	const [isDetalhesOpen, setIsDetalhesOpen] = useState(false);
+	const [dadosDetalhes, setDadosDetalhes] = useState<Filiais>();
+	const [data, setData] = useState<Filiais[]>([]);
+
+	useEffect(() => {
+		axios
+			.get("http://130.185.238.189:5000/api/filial/v1/listar")
+			.then((response: any) => {
+				setData(response);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+
+		return () => {};
+	}, []);
 
 	const handleClickDetalhes = (row: any) => {
 		setDadosDetalhes(row);
