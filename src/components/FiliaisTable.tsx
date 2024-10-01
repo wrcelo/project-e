@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
 	ColumnDef,
 	ColumnFiltersState,
@@ -15,7 +14,6 @@ import {
 } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -27,7 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ChevronDown, ChevronLeft, ChevronRight, List, LoaderCircle, Plus, Upload } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -72,10 +70,10 @@ export function FiliaisTable() {
 	const [data, setData] = useState<Filiais[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [isAlertaRemoverFilialOpen, setIsAlertaRemoverFilialOpen] = useState(false);
-
+	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 	const handleFetch = () => {
 		axios
-			.get("https://localhost:44317/api/filial/v1/listar")
+			.get(`${apiUrl}api/filial/v1/listar`)
 			.then((response: any) => {
 				setIsLoading(true);
 				setData(response.data);
@@ -97,7 +95,7 @@ export function FiliaisTable() {
 			toast.error("Algo deu errado ao fazer a requisição");
 			return;
 		}
-		axios.delete(`https://localhost:44317/api/filial/v1/excluir/cnpj/${cnpj}`).then((response) => {
+		axios.delete(`${apiUrl}${cnpj}`).then((response) => {
 			if (response.status == 204) {
 				toast.success("Filial excluída com sucesso", { position: "top-right" });
 				handleFetch();
@@ -115,25 +113,25 @@ export function FiliaisTable() {
 		setIsAlertaRemoverFilialOpen(true);
 	};
 	const columns: ColumnDef<Filiais>[] = [
-		{
-			id: "select",
-			header: ({ table }) => (
-				<Checkbox
-					checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
-					onCheckedChange={(value: any) => table.toggleAllPageRowsSelected(!!value)}
-					aria-label="Selecionar todos"
-				/>
-			),
-			cell: ({ row }) => (
-				<Checkbox
-					checked={row.getIsSelected()}
-					onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-					aria-label="Select row"
-				/>
-			),
-			enableSorting: false,
-			enableHiding: false,
-		},
+		// {
+		// 	id: "select",
+		// 	header: ({ table }) => (
+		// 		<Checkbox
+		// 			checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
+		// 			onCheckedChange={(value: any) => table.toggleAllPageRowsSelected(!!value)}
+		// 			aria-label="Selecionar todos"
+		// 		/>
+		// 	),
+		// 	cell: ({ row }) => (
+		// 		<Checkbox
+		// 			checked={row.getIsSelected()}
+		// 			onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+		// 			aria-label="Select row"
+		// 		/>
+		// 	),
+		// 	enableSorting: false,
+		// 	enableHiding: false,
+		// },
 		{
 			accessorKey: "nome",
 			header: "Nome",
@@ -143,11 +141,6 @@ export function FiliaisTable() {
 			accessorKey: "cnpj",
 			header: "CNPJ",
 			cell: ({ row }) => <div className="">{row.getValue("cnpj")}</div>,
-		},
-		{
-			accessorKey: "inscricaoEstadual",
-			header: "Inscrição Estadual",
-			cell: ({ row }) => <div className="">{row.getValue("inscricaoEstadual")}</div>,
 		},
 		{
 			id: "actions",
