@@ -134,11 +134,11 @@ export const columns: ColumnDef<ProdutoEstoque>[] = [
 		header: "Nome",
 		cell: ({ row }) => <div className="capitalize">{row.getValue("nome")}</div>,
 	},
-	{
-		accessorKey: "cor",
-		header: "Cor",
-		cell: ({ row }) => <div className="">{row.getValue("cor")}</div>,
-	},
+	// {
+	// 	accessorKey: "cor",
+	// 	header: "Cor",
+	// 	cell: ({ row }) => <div className="">{row.getValue("cor")}</div>,
+	// },
 	{
 		accessorKey: "metrosEstoque",
 		header: "Estoque",
