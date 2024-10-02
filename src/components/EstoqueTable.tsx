@@ -199,7 +199,7 @@ export function EstoqueTable() {
 	});
 
 	return (
-		<div className="w-fulls">
+		<div className="w-full">
 			<div className="flex items-center py-4">
 				<div className="flex gap-2">
 					<Button className="gap-2 flex px-3 sm:px-4">

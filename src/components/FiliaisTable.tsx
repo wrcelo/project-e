@@ -41,6 +41,7 @@ import {
 import { toast } from "sonner";
 
 export type Filiais = {
+	id: string;
 	nome: string;
 	cnpj: string;
 	inscricaoEstadual: string;
@@ -65,8 +66,8 @@ export function FiliaisTable() {
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 	const [rowSelection, setRowSelection] = useState({});
-	const [isDetalhesOpen, setIsDetalhesOpen] = useState(false);
 	const [dadosDetalhes, setDadosDetalhes] = useState<Filiais>();
+	const [isDetalhesOpen, setIsDetalhesOpen] = useState(false);
 	const [data, setData] = useState<Filiais[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [isAlertaRemoverFilialOpen, setIsAlertaRemoverFilialOpen] = useState(false);
@@ -90,12 +91,13 @@ export function FiliaisTable() {
 		return () => {};
 	}, []);
 
-	const handleConcluirExcluirFilial = (cnpj: string | undefined) => {
-		if (cnpj == undefined) {
+	const handleConcluirExcluirFilial = (id: string | undefined) => {
+		if (id == undefined) {
 			toast.error("Algo deu errado ao fazer a requisição");
 			return;
 		}
-		axios.delete(`${apiUrl}${cnpj}`).then((response) => {
+
+		axios.delete(`${apiUrl}api/filial/v1/excluir/id/${id}`).then((response) => {
 			if (response.status == 204) {
 				toast.success("Filial excluída com sucesso", { position: "top-right" });
 				handleFetch();
@@ -135,12 +137,20 @@ export function FiliaisTable() {
 		{
 			accessorKey: "nome",
 			header: "Nome",
-			cell: ({ row }) => <div className="capitalize">{row.getValue("nome")}</div>,
+			cell: ({ row }) => (
+				<div className="w-full min-w-[100px]">
+					<span className="line-clamp-1">{row.getValue("nome")}</span>
+				</div>
+			),
 		},
 		{
 			accessorKey: "cnpj",
 			header: "CNPJ",
-			cell: ({ row }) => <div className="">{row.getValue("cnpj")}</div>,
+			cell: ({ row }) => (
+				<div className="w-[30px] sm:w-full">
+					<span className="line-clamp-1">{row.getValue("cnpj")}</span>
+				</div>
+			),
 		},
 		{
 			id: "actions",
@@ -154,7 +164,7 @@ export function FiliaisTable() {
 									variant="ghost"
 									className="h-8 w-8 p-0"
 								>
-									<span className="sr-only">Gerenciar</span>
+									<span className="sr-only">Ações</span>
 									<List className="h-4 w-4" />
 								</Button>
 							</DropdownMenuTrigger>
@@ -191,7 +201,7 @@ export function FiliaisTable() {
 	});
 
 	return (
-		<div className="w-fulls">
+		<div className="w-full">
 			<div className="flex items-center py-4">
 				<div className="flex gap-2">
 					<Button className="gap-2 flex px-3 sm:px-4">
@@ -312,7 +322,7 @@ export function FiliaisTable() {
 					</AlertDialogHeader>
 					<AlertDialogFooter>
 						<AlertDialogCancel onClick={() => setIsAlertaRemoverFilialOpen(false)}>Cancelar</AlertDialogCancel>
-						<AlertDialogAction onClick={() => handleConcluirExcluirFilial(dadosDetalhes?.cnpj)}>Continuar</AlertDialogAction>
+						<AlertDialogAction onClick={() => handleConcluirExcluirFilial(dadosDetalhes?.id)}>Continuar</AlertDialogAction>
 					</AlertDialogFooter>
 				</AlertDialogContent>
 			</AlertDialog>
@@ -322,7 +332,7 @@ export function FiliaisTable() {
 			>
 				<DialogContent className="min-w-[60vw]">
 					<DialogHeader>
-						<DialogTitle className="mb-4">{dadosDetalhes?.nome}</DialogTitle>
+						<DialogTitle className="mb-4 text-sm text-left">{dadosDetalhes?.nome}</DialogTitle>
 					</DialogHeader>
 					<Table>
 						<TableCaption className="text-left text-xs">{`${dadosDetalhes?.nome} - ${dadosDetalhes?.cnpj}`}</TableCaption>
