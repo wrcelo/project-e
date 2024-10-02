@@ -330,14 +330,13 @@ export function FiliaisTable() {
 				open={isDetalhesOpen}
 				onOpenChange={setIsDetalhesOpen}
 			>
-				<DialogContent className="min-w-[60vw]">
+				<DialogContent className="min-w-[60vw] ">
 					<DialogHeader>
 						<DialogTitle className="mb-4 text-sm text-left">{dadosDetalhes?.nome}</DialogTitle>
 					</DialogHeader>
 					<Table>
-						<TableCaption className="text-left text-xs">{`${dadosDetalhes?.nome} - ${dadosDetalhes?.cnpj}`}</TableCaption>
 						<TableHeader>
-							<TableRow className="bg-muted/50 border-none">
+							<TableRow>
 								{dadosDetalhes?.cnpj && <TableHead>CNPJ</TableHead>}
 								{dadosDetalhes?.inscricaoEstadual && <TableHead>Inscrição Estadual</TableHead>}
 								{dadosDetalhes?.telefone && <TableHead>Telefone</TableHead>}
