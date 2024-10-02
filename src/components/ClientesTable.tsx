@@ -173,35 +173,43 @@ export type Cliente = {
 };
 
 export const columns: ColumnDef<Cliente>[] = [
-	{
-		id: "select",
-		header: ({ table }) => (
-			<Checkbox
-				checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
-				onCheckedChange={(value: any) => table.toggleAllPageRowsSelected(!!value)}
-				aria-label="Selecionar todos"
-			/>
-		),
-		cell: ({ row }) => (
-			<Checkbox
-				checked={row.getIsSelected()}
-				onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-				aria-label="Select row"
-			/>
-		),
-		enableSorting: false,
-		enableHiding: false,
-	},
+	// {
+	// 	id: "select",
+	// 	header: ({ table }) => (
+	// 		<Checkbox
+	// 			checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
+	// 			onCheckedChange={(value: any) => table.toggleAllPageRowsSelected(!!value)}
+	// 			aria-label="Selecionar todos"
+	// 		/>
+	// 	),
+	// 	cell: ({ row }) => (
+	// 		<Checkbox
+	// 			checked={row.getIsSelected()}
+	// 			onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+	// 			aria-label="Select row"
+	// 		/>
+	// 	),
+	// 	enableSorting: false,
+	// 	enableHiding: false,
+	// },
 	{
 		accessorKey: "nome",
 		header: "Nome",
-		cell: ({ row }) => <div className="capitalize">{row.getValue("nome")}</div>,
+		cell: ({ row }) => (
+			<div className="w-full">
+				<span className="line-clamp-1">{row.getValue("nome")}</span>
+			</div>
+		),
 	},
-	{
-		accessorKey: "email",
-		header: "Email",
-		cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-	},
+	// {
+	// 	accessorKey: "email",
+	// 	header: "Email",
+	// 	cell: ({ row }) => (
+	// 		<div className="w-full">
+	// 			<span className="line-clamp-1">{row.getValue("email")}</span>
+	// 		</div>
+	// 	),
+	// },
 	{
 		accessorKey: "telefone",
 		header: "Telefone",
